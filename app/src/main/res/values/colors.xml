@@ -6,8 +6,11 @@
 
     <color name="bg_blue">#507AF8</color>
     <color name="bg_blue1">#2A166F</color>
+    <color name="text_blue">#32B6DC</color>
     <color name="white">#ffffff</color>
-    <color name="bg_grey">#cdcdcd</color>
+    <color name="black">#000000</color>
+    <color name="bg_grey">#DDDDDD</color>
     <color name="transparent">#00ffffff</color>
-    <color name="line_color">#6C6B6B</color>
+    <color name="line_color">#e6e6e6</color>
+    <color name="bg_orange">#FFA525</color>
 </resources>

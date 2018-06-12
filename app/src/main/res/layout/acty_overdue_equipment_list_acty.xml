@@ -5,9 +5,16 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <com.zq.sm.view.TitleBar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <View
@@ -16,9 +23,9 @@
             android:background="@color/line_color" />
 
         <LinearLayout
-            android:id="@+id/ll_equipment"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@color/text_blue"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -28,41 +35,12 @@
                 android:background="@color/line_color" />
 
             <TextView
-                android:id="@+id/tv_batchNo"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="" />
-
-            <View
-                android:layout_width="0.5dp"
-                android:layout_height="match_parent"
-                android:background="@color/line_color" />
-
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="" />
-
-            <View
-                android:layout_width="0.5dp"
-                android:layout_height="match_parent"
-                android:background="@color/line_color" />
-
-            <TextView
-                android:id="@+id/tv_in_num"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="" />
+                android:text="装备编号" />
 
             <View
                 android:layout_width="0.5dp"
@@ -70,13 +48,12 @@
                 android:background="@color/line_color" />
 
             <TextView
-                android:id="@+id/tv_lend_num"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="" />
+                android:text="装备名称" />
 
             <View
                 android:layout_width="0.5dp"
@@ -84,53 +61,43 @@
                 android:background="@color/line_color" />
 
             <TextView
-                android:id="@+id/tv_total_num"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="" />
+                android:text="过期时间" />
 
             <View
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:background="@color/line_color" />
 
-            <!--<LinearLayout-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:gravity="center"-->
-            <!--android:orientation="horizontal">-->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="过期天数" />
 
-            <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@color/text_blue"-->
-            <!--android:padding="5dp"-->
-            <!--android:text="维修记录"-->
-            <!--android:textColor="@color/white" />-->
-
-            <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="15dp"-->
-            <!--android:background="@color/bg_orange"-->
-            <!--android:padding="5dp"-->
-            <!--android:text="设备详情"-->
-            <!--android:textColor="@color/white" />-->
-            <!--</LinearLayout>-->
-
-            <!--<View-->
-            <!--android:layout_width="0.5dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="@color/line_color" />-->
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/line_color" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/line_color" />
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@null"
+            android:scrollbars="none" />
     </LinearLayout>
 </LinearLayout>

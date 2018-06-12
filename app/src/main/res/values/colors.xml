@@ -13,4 +13,6 @@
     <color name="transparent">#00ffffff</color>
     <color name="line_color">#e6e6e6</color>
     <color name="bg_orange">#FFA525</color>
+    <color name="bg_red">#FF0000</color>
+    <color name="bg_green">#26a90e</color>
 </resources>

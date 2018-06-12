@@ -13,6 +13,10 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2018/5/9.
@@ -70,5 +74,38 @@ public class Utility {
             e.printStackTrace();
         }
         return new BitmapDrawable(context.getResources(), bitmap);
+    }
+
+    public static boolean compareTime(String beginTime, String endTime, String type) {
+        SimpleDateFormat sdf = new SimpleDateFormat(type);
+        Date bt = null;
+        Date et = null;
+        try {
+            bt = sdf.parse(beginTime);
+            et = sdf.parse(endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return bt.before(et);
+    }
+
+    public static String getNowTime(String type) {
+        SimpleDateFormat sDateFormat = new SimpleDateFormat(type);
+        Calendar c = Calendar.getInstance();
+        return sDateFormat.format(c.getTime());
+    }
+
+    public static long getDayByTime(String time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = sdf.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long s1 = date.getTime();//将时间转为毫秒
+        long s2 = System.currentTimeMillis();//得到当前的毫秒
+        long s = (s2 - s1) / 1000 / 60 / 60 / 24;
+        return s;
     }
 }

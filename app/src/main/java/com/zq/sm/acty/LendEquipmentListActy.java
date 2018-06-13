@@ -30,7 +30,7 @@ public class LendEquipmentListActy extends BaseActy {
     }
 
     private void initView() {
-        initTitleBar(R.id.title, 0, R.drawable.refresh, "借出装备", null, R.color.text_blue, R.color.white);
+        initTitleBar(R.id.title, R.drawable.back, 0, "借出装备", null, R.color.text_blue, R.color.white);
         list = new ArrayList<>();
         list.add(new LendEquipmentBean("NAO056", "防弹防刺服", "张明", "苏州公安局高新分局", "2018-06-10", "2018-06-15"));
         list.add(new LendEquipmentBean("NBO012", "防弹头盔", "张明", "苏州公安局高新分局", "2018-06-10", "2018-06-15"));
@@ -48,7 +48,9 @@ public class LendEquipmentListActy extends BaseActy {
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
-
+            case R.id.tb_left:
+                finish();
+                break;
         }
     }
 }

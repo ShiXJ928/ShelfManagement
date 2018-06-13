@@ -30,7 +30,7 @@ public class OverdueEquipmentActy extends BaseActy {
     }
 
     private void initView() {
-        initTitleBar(R.id.title, 0, R.drawable.refresh, "过期装备", null, R.color.text_blue, R.color.white);
+        initTitleBar(R.id.title, R.drawable.back, 0, "过期装备", null, R.color.text_blue, R.color.white);
         list = new ArrayList<>();
         list.add(new OverdueEquipmentBean("NAO056", "收拷", "2019-06-15"));
         list.add(new OverdueEquipmentBean("NE1572", "防弹头盔", "2018-05-18"));
@@ -45,7 +45,9 @@ public class OverdueEquipmentActy extends BaseActy {
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
-
+            case R.id.tb_left:
+                finish();
+                break;
         }
     }
 }

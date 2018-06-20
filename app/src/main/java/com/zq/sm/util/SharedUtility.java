@@ -13,8 +13,6 @@ public class SharedUtility {
 
     public void loginOut() {
         editor.remove("token");
-        editor.remove("pwd");
-        editor.remove("name");
         editor.commit();
     }
 
@@ -27,30 +25,12 @@ public class SharedUtility {
         editor.commit();
     }
 
-    public String getAccount() {
-        return pref.getString("account", "");
+    public String getEquipId(){
+        return pref.getString("equipId", "");
     }
 
-    public void setAccount(String account) {
-        editor.putString("account", account);
-        editor.commit();
-    }
-
-    public String getPwd() {
-        return pref.getString("pwd", "");
-    }
-
-    public void setPwd(String pwd) {
-        editor.putString("pwd", pwd);
-        editor.commit();
-    }
-
-    public String getName() {
-        return pref.getString("name", "");
-    }
-
-    public void setName(String name) {
-        editor.putString("name", name);
+    public void setEquipId(String equipId){
+        editor.putString("equipId", equipId);
         editor.commit();
     }
 }

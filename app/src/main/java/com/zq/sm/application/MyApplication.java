@@ -3,7 +3,6 @@ package com.zq.sm.application;
 import android.app.Activity;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
-import android.util.Log;
 
 import java.util.LinkedList;
 import java.util.List;

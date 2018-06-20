@@ -1,16 +1,16 @@
 package com.zq.sm.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zq.sm.R;
-import com.zq.sm.acty.BaseActy;
 import com.zq.sm.bean.EquipmentBean;
+import com.zq.sm.util.Utility;
 
 import java.util.List;
 
@@ -18,71 +18,104 @@ import java.util.List;
  * Created by Administrator on 2018/6/8.
  */
 
-public class EquipmentListAdapter extends BaseAdapter {
+public class EquipmentListAdapter extends RecyclerView.Adapter<EquipmentListAdapter.ViewHolder> implements View.OnClickListener {
+    private List<EquipmentBean> data;
+    private LayoutInflater inflater;
+    private RecyclerView mRecyclerView;//用来计算Child位置
+    private OnItemClickListener onItemClickListener;
 
-    private List<EquipmentBean> list;
-    private BaseActy context;
-    private LayoutInflater mInflater;
-
-    public EquipmentListAdapter(Context context, List<EquipmentBean> list) {
-        mInflater = LayoutInflater.from(context);
-        this.context = (BaseActy) context;
-        this.list = list;
+    //对外提供接口初始化方法
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
-    @Override
-    public int getCount() {
-        return list.size();
+    public EquipmentListAdapter(Context context, List<EquipmentBean> data) {
+        this.data = data;
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    @Override
-    public Object getItem(int i) {
-        return list.get(i);
-    }
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView iv_img;
+        TextView tv_name;
+        TextView tv_num;
 
-    @Override
-    public long getItemId(int i) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup viewGroup) {
-        View view;
-        ViewHolder holder = null;
-        EquipmentBean bean = list.get(position);
-        // 判断convertView的状态，来达到复用效果
-        if (null == convertView) {
-            //如果convertView为空，则表示第一次显示该条目，需要创建一个view
-            view = View.inflate(context, R.layout.item_equipment, null);
-            holder = new ViewHolder();
-            holder.tv_name = (TextView) view.findViewById(R.id.tv_name);
-            holder.tv_in_num = (TextView) view.findViewById(R.id.tv_in_num);
-            holder.tv_lend_num = (TextView) view.findViewById(R.id.tv_lend_num);
-            holder.tv_total_num = (TextView) view.findViewById(R.id.tv_total_num);
-            holder.tv_batchNo = (TextView) view.findViewById(R.id.tv_batchNo);
-            holder.ll_equipment = (LinearLayout) view.findViewById(R.id.ll_equipment);
-            // 将holder与view进行绑定
-            view.setTag(holder);
-        } else {
-            //否则表示可以复用convertView
-            view = convertView;
-            holder = (ViewHolder) view.getTag();
+        public ViewHolder(View itemView) {
+            super(itemView);
+            tv_name = (TextView) itemView.findViewById(R.id.tv_name);
+            tv_num = (TextView) itemView.findViewById(R.id.tv_num);
+            iv_img = (ImageView) itemView.findViewById(R.id.iv_img);
         }
-        if (position % 2 == 1) {
-            holder.ll_equipment.setBackgroundColor(context.getResources().getColor(R.color.bg_grey));
-        } else {
-            holder.ll_equipment.setBackgroundColor(context.getResources().getColor(R.color.white));
-        }
-        holder.tv_name.setText(bean.getName());
-        holder.tv_in_num.setText(""+bean.getInNum());
-        holder.tv_lend_num.setText("" + bean.getLendNum());
-        holder.tv_total_num.setText("" + bean.getTotalNum());
-        holder.tv_batchNo.setText(bean.getBatchNo());
-        return view;
     }
 
-    public class ViewHolder {
-        TextView tv_name, tv_in_num, tv_lend_num, tv_total_num, tv_batchNo;
-        LinearLayout ll_equipment;
+    /**
+     * 创建VIewHolder，导入布局，实例化itemView
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = inflater.inflate(R.layout.item_equipment, parent, false);
+
+        //导入itemView，为itemView设置点击事件
+        itemView.setOnClickListener(this);
+        return new ViewHolder(itemView);
+    }
+
+    /**
+     * 绑定VIewHolder，加载数据
+     *
+     * @param holder
+     * @param position
+     */
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.tv_name.setText(data.get(position).getName());//加载数据
+        holder.tv_num.setText("数量：" + data.get(position).getTotalNum());
+        Utility.displayImage(data.get(position).getImageUrl(), holder.iv_img, R.drawable.fail_image);
+    }
+
+    /**
+     * 数据源的数量，item的个数
+     *
+     * @return
+     */
+    @Override
+    public int getItemCount() {
+        return data != null ? data.size() : 0;
+    }
+
+    /**
+     * 适配器绑定到RecyclerView 的时候，回将绑定适配器的RecyclerView 传递过来
+     *
+     * @param recyclerView
+     */
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
+    }
+
+    /**
+     * @param v 点击的View
+     */
+    @Override
+    public void onClick(View v) {
+        //RecyclerView可以计算出这是第几个Child
+        int childAdapterPosition = mRecyclerView.getChildAdapterPosition(v);
+        if (onItemClickListener != null) {
+            onItemClickListener.onItemClick(childAdapterPosition, data.get(childAdapterPosition));
+        }
+    }
+
+    /**
+     * 接口回调
+     * 1、定义接口，定义接口中的方法
+     * 2、在数据产生的地方持有接口，并提供初始化方法，在数据产生的时候调用接口的方法
+     * 3、在需要处理数据的地方实现接口，实现接口中的方法，并将接口传递到数据产生的地方
+     */
+    public interface OnItemClickListener {
+        void onItemClick(int position, EquipmentBean model);
     }
 }

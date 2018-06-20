@@ -7,6 +7,7 @@ package com.zq.sm.bean;
 public class LendEquipmentBean {
 
     private String equipID;
+    private String imageUrl;
     private String equipName;
     private String userName;
     private String userCompany;
@@ -16,8 +17,9 @@ public class LendEquipmentBean {
     public LendEquipmentBean() {
     }
 
-    public LendEquipmentBean(String equipID,String equipName, String userName, String userCompany, String lendTime, String returnTime) {
+    public LendEquipmentBean(String equipID, String imageUrl, String equipName, String userName, String userCompany, String lendTime, String returnTime) {
         this.equipID = equipID;
+        this.imageUrl = imageUrl;
         this.equipName = equipName;
         this.userName = userName;
         this.userCompany = userCompany;
@@ -31,6 +33,14 @@ public class LendEquipmentBean {
 
     public String getEquipID() {
         return equipID;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public void setEquipID(String equipID) {

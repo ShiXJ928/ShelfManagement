@@ -17,5 +17,6 @@
         </activity>
         <activity android:name=".acty.LendEquipmentListActy" />
         <activity android:name=".acty.OverdueEquipmentActy" />
+        <activity android:name=".acty.TypeEquipmentListActy" />
     </application>
 </manifest>

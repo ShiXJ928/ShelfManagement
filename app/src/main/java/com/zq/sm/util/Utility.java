@@ -96,7 +96,7 @@ public class Utility {
     }
 
     public static long getDayByTime(String time) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
         Date date = null;
         try {
             date = sdf.parse(time);

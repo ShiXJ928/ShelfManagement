@@ -28,4 +28,6 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile files('libs/fastjson-1.2.5.jar')
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile project(':lib_PullLoadMoreRecyclerView')
 }

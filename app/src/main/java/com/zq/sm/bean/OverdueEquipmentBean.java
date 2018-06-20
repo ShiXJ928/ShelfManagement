@@ -8,14 +8,16 @@ public class OverdueEquipmentBean {
 
     private String equipID;
     private String equipName;
+    private String imageUrl;
     private String overdueTime;
 
     public OverdueEquipmentBean() {
     }
 
-    public OverdueEquipmentBean(String equipID, String equipName, String overdueTime) {
+    public OverdueEquipmentBean(String equipID, String equipName, String imageUrl, String overdueTime) {
         this.equipID = equipID;
         this.overdueTime = overdueTime;
+        this.imageUrl = imageUrl;
         this.equipName = equipName;
     }
 
@@ -33,6 +35,14 @@ public class OverdueEquipmentBean {
 
     public void setEquipName(String equipName) {
         this.equipName = equipName;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getOverdueTime() {

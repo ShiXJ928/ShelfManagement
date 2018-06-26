@@ -3,6 +3,7 @@ package com.zq.sm.acty;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 import com.zq.sm.R;
+import com.zq.sm.application.App;
 import com.zq.sm.bean.EquipmentBean;
 import com.zq.sm.adapter.EquipmentListAdapter;
 import com.zq.sm.util.ToastUtil;
@@ -29,7 +31,7 @@ public class MainActy extends BaseActy implements EquipmentListAdapter.OnItemCli
     private EquipmentListAdapter adapter;
     private LinearLayout ll_left, ll_right;
     private TextView tb_tv;
-    private ImageView iv_setting;
+    private TextView tv_setting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class MainActy extends BaseActy implements EquipmentListAdapter.OnItemCli
         list.add(new EquipmentBean("肩灯", "drawable://" + R.drawable.shoulder_lamp, 30));
         recyclerView = (PullLoadMoreRecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setGridLayout(3);
+
         adapter = new EquipmentListAdapter(this, list);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(this);
@@ -72,11 +75,24 @@ public class MainActy extends BaseActy implements EquipmentListAdapter.OnItemCli
 //        recyclerView.setFooterViewTextColor(R.color.bg_blue);
 //        recyclerView.setColorSchemeResources(android.R.color.holo_red_dark,android.R.color.holo_blue_dark);
 
-        iv_setting = (ImageView) findViewById(R.id.iv_setting);
-        iv_setting.setOnClickListener(this);
-    }
+        tv_setting = (TextView) findViewById(R.id.tv_setting);
+        tv_setting.setOnClickListener(new View.OnClickListener() {
+            //需要监听几次点击事件数组的长度就为几
+            //如果要监听双击事件则数组长度为2，如果要监听3次连续点击事件则数组长度为3...
+            long[] mHints = new long[5];//初始全部为0
 
-    private long firstClickTime = 0;
+            @Override
+            public void onClick(View v) {
+                //将mHints数组内的所有元素左移一个位置
+                System.arraycopy(mHints, 1, mHints, 0, mHints.length - 1);
+                //获得当前系统已经启动的时间
+                mHints[mHints.length - 1] = SystemClock.uptimeMillis();
+                if (SystemClock.uptimeMillis() - mHints[0] <= 1000) {
+                    startActivityForResult(new Intent(MainActy.this, SettingActy.class), 101);
+                }
+            }
+        });
+    }
 
     @Override
     public void onClick(View v) {
@@ -87,20 +103,6 @@ public class MainActy extends BaseActy implements EquipmentListAdapter.OnItemCli
                 break;
             case R.id.ll_right:
                 startActivity(new Intent(this, LendEquipmentListActy.class));
-                break;
-            case R.id.iv_setting:
-                if (firstClickTime > 0) {
-                    long secondClickTime = SystemClock.uptimeMillis();
-                    long dtime = secondClickTime - firstClickTime;
-                    if (dtime > 500) {
-
-                    } else {
-                        firstClickTime = 0;
-                        startActivity(new Intent(this, SettingActy.class));
-                    }
-                    return;
-                }
-                firstClickTime = SystemClock.uptimeMillis();
                 break;
         }
     }
@@ -137,5 +139,13 @@ public class MainActy extends BaseActy implements EquipmentListAdapter.OnItemCli
     @Override
     public void onLoadMore() {
         recyclerView.setPullLoadMoreCompleted();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 101 && resultCode == RESULT_OK) {
+            Log.e("-------->", App.sharedUtility.getEquipId());
+        }
     }
 }

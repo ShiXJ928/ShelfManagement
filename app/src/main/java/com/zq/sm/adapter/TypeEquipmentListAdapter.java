@@ -35,6 +35,7 @@ public class TypeEquipmentListAdapter extends RecyclerView.Adapter<TypeEquipment
         TextView tv_num;
         TextView tv_statues;
         TextView tv_position;
+        TextView tv_storage_time;
         TextView tv_overdue_time;
         TextView tv_manufacture_time;
 
@@ -44,6 +45,7 @@ public class TypeEquipmentListAdapter extends RecyclerView.Adapter<TypeEquipment
             tv_num = (TextView) itemView.findViewById(R.id.tv_num);
             tv_statues = (TextView) itemView.findViewById(R.id.tv_statues);
             tv_position = (TextView) itemView.findViewById(R.id.tv_position);
+            tv_storage_time = (TextView) itemView.findViewById(R.id.tv_storage_time);
             tv_overdue_time = (TextView) itemView.findViewById(R.id.tv_overdue_time);
             tv_manufacture_time = (TextView) itemView.findViewById(R.id.tv_manufacture_time);
             ll_equipment = (LinearLayout) itemView.findViewById(R.id.ll_equipment);
@@ -75,6 +77,7 @@ public class TypeEquipmentListAdapter extends RecyclerView.Adapter<TypeEquipment
         holder.tv_num.setText(data.get(position).getEquipID());//加载数据
         holder.tv_statues.setText(data.get(position).getStatues());
         holder.tv_position.setText(data.get(position).getPosition());
+        holder.tv_storage_time.setText(data.get(position).getStorageTime());
         holder.tv_overdue_time.setText(data.get(position).getOverdueTime());
         holder.tv_manufacture_time.setText(data.get(position).getManufactureTime());
         if (Utility.getNowTime("yyyy.MM.dd").equals(data.get(position).getOverdueTime())) {

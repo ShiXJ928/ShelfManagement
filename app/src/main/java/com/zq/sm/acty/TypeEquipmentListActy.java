@@ -36,17 +36,17 @@ public class TypeEquipmentListActy extends BaseActy implements PullLoadMoreRecyc
         String name = intent.getStringExtra("name");
         initTitleBar(R.id.title, R.drawable.back, 0, name, null, R.color.text_blue, R.color.white);
         list = new ArrayList<>();
-        list.add(new EquipmentInfoBean("NAO001", "", "", "借出", "", "2019.12.1", "2016.1.1"));
-        list.add(new EquipmentInfoBean("NAO002", "", "", "借出", "", "2019.1.10", "2016.1.1"));
-        list.add(new EquipmentInfoBean("NAO003", "", "", "借出", "", "2019.1.10", "2016.1.1"));
-        list.add(new EquipmentInfoBean("NAO004", "", "", "在库", "3层1排", "2018.6.10", "2015.1.1"));
-        list.add(new EquipmentInfoBean("NAO005", "", "", "在库", "3层1排", "2018.7.10", "2015.1.1"));
-        list.add(new EquipmentInfoBean("NAO006", "", "", "在库", "3层2排", "2018.7.10", "2016.1.1"));
-        list.add(new EquipmentInfoBean("NAO007", "", "", "在库", "3层2排", "2019.1.10", "2016.1.1"));
-        list.add(new EquipmentInfoBean("NAO008", "", "", "在库", "2层2排", "2019.1.10", "2016.1.1"));
-        list.add(new EquipmentInfoBean("NAO009", "", "", "在库", "2层2排", "2019.1.10", "2016.1.1"));
-        list.add(new EquipmentInfoBean("NAO010", "", "", "在库", "2层2排", "2019.1.10", "2016.1.1"));
-        list.add(new EquipmentInfoBean("NAO011", "", "", "在库", "2层2排", "2019.1.10", "2016.1.1"));
+        list.add(new EquipmentInfoBean("NAO001", "", "", "借出", "","2017.1.1" ,"2019.12.1", "2016.1.1"));
+        list.add(new EquipmentInfoBean("NAO002", "", "", "借出", "","2017.1.1", "2019.1.10", "2016.1.1"));
+        list.add(new EquipmentInfoBean("NAO003", "", "", "借出", "", "2016.6.20" ,"2019.1.10", "2016.1.1"));
+        list.add(new EquipmentInfoBean("NAO004", "", "", "在库", "A1-1","2016.1.20" , "2018.6.10", "2015.1.1"));
+        list.add(new EquipmentInfoBean("NAO005", "", "", "在库", "A1-1", "2016.1.20" ,"2018.7.10", "2015.1.1"));
+        list.add(new EquipmentInfoBean("NAO006", "", "", "在库", "A1-1","2016.1.20" , "2018.7.10", "2016.1.1"));
+        list.add(new EquipmentInfoBean("NAO007", "", "", "在库", "A1-2","2016.1.20" , "2019.1.10", "2016.1.1"));
+        list.add(new EquipmentInfoBean("NAO008", "", "", "在库", "A1-2","2016.1.20" , "2019.1.10", "2016.1.1"));
+        list.add(new EquipmentInfoBean("NAO009", "", "", "在库", "A1-2","2016.1.20" , "2019.1.10", "2016.1.1"));
+        list.add(new EquipmentInfoBean("NAO010", "", "", "在库", "A1-2", "2016.1.20" ,"2019.1.10", "2016.1.1"));
+        list.add(new EquipmentInfoBean("NAO011", "", "", "在库", "A1-2", "2016.1.20" ,"2019.1.10", "2016.1.1"));
 
         recyclerView = (PullLoadMoreRecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setGridLayout(1);

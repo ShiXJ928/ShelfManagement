@@ -33,13 +33,13 @@ public class LendEquipmentListActy extends BaseActy implements PullLoadMoreRecyc
     private void initView() {
         initTitleBar(R.id.title, R.drawable.back, 0, "借出装备", null, R.color.text_blue, R.color.white);
         list = new ArrayList<>();
-        list.add(new LendEquipmentBean("NAO056", "drawable://" + R.drawable.tear_ejector, "催泪喷射器", "张明", "苏州公安局高新分局", "2018.06.10", "2018.06.15"));
-        list.add(new LendEquipmentBean("NBO012", "drawable://" + R.drawable.interphone, "对讲机", "张明", "苏州公安局高新分局", "2018.06.10", "2018.06.15"));
-        list.add(new LendEquipmentBean("NCO259", "drawable://" + R.drawable.flashlight, "强光手电", "张明", "苏州公安局高新分局", "2018.06.10", "2018.06.15"));
-        list.add(new LendEquipmentBean("NDO186", "drawable://" + R.drawable.law_enforcement_instrument, "执法仪", "张明", "苏州公安局高新分局", "2018.06.10", "2018.06.15"));
-        list.add(new LendEquipmentBean("NEO043", "drawable://" + R.drawable.multifunction_belt, "多功能腰带", "张明", "苏州公安局高新分局", "2018.06.10", "2018.06.15"));
-        list.add(new LendEquipmentBean("NC1239", "drawable://" + R.drawable.cut_resistant_gloves, "防割手套", "赵哥", "苏州公安局高新分局", "2018.06.01", "2018.06.10"));
-        list.add(new LendEquipmentBean("NE0008", "drawable://" + R.drawable.telescopic_baton, "伸缩警棍", "李晓", "苏州公安局园区分局", "2018.06.01", "2018.06.12"));
+        list.add(new LendEquipmentBean("NAO056", "drawable://" + R.drawable.tear_ejector, "催泪喷射器", "张明", "如皋市公安局", "2018.06.10", "2018.06.15"));
+        list.add(new LendEquipmentBean("NBO012", "drawable://" + R.drawable.interphone, "对讲机", "张明", "如皋市公安局", "2018.06.10", "2018.06.15"));
+        list.add(new LendEquipmentBean("NCO259", "drawable://" + R.drawable.flashlight, "强光手电", "张明", "如皋市公安局", "2018.06.10", "2018.06.15"));
+        list.add(new LendEquipmentBean("NDO186", "drawable://" + R.drawable.law_enforcement_instrument, "执法仪", "张明", "如皋市公安局", "2018.06.10", "2018.06.15"));
+        list.add(new LendEquipmentBean("NEO043", "drawable://" + R.drawable.multifunction_belt, "多功能腰带", "张明", "如皋市公安局", "2018.06.10", "2018.06.15"));
+        list.add(new LendEquipmentBean("NC1239", "drawable://" + R.drawable.cut_resistant_gloves, "防割手套", "赵哥", "如皋市公安局", "2018.06.01", "2018.06.10"));
+        list.add(new LendEquipmentBean("NE0008", "drawable://" + R.drawable.telescopic_baton, "伸缩警棍", "李晓", "如皋市公安局", "2018.06.01", "2018.06.12"));
 
 
         recyclerView = (PullLoadMoreRecyclerView) findViewById(R.id.recycler_view);

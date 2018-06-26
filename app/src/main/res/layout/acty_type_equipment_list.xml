@@ -80,6 +80,19 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="5dp"
+                android:text="入库时间" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/line_color" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="5dp"
                 android:text="过期时间" />
 
             <View
@@ -93,7 +106,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="出场时间" />
+                android:text="出厂时间" />
 
             <View
                 android:layout_width="0.5dp"
@@ -111,8 +124,8 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
         android:layout_weight="1" />
 </LinearLayout>

@@ -11,18 +11,20 @@ public class EquipmentInfoBean {
     private String imageUrl;
     private String statues;
     private String position;
+    private String storageTime;
     private String overdueTime;
     private String manufactureTime;
 
     public EquipmentInfoBean() {
     }
 
-    public EquipmentInfoBean(String equipID, String equipName, String imageUrl, String statues, String position, String overdueTime, String manufactureTime) {
+    public EquipmentInfoBean(String equipID, String equipName, String imageUrl, String statues, String position, String storageTime, String overdueTime, String manufactureTime) {
         this.equipID = equipID;
         this.equipName = equipName;
         this.imageUrl = imageUrl;
         this.statues = statues;
         this.position = position;
+        this.storageTime = storageTime;
         this.overdueTime = overdueTime;
         this.manufactureTime = manufactureTime;
     }
@@ -65,6 +67,14 @@ public class EquipmentInfoBean {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public String getStorageTime() {
+        return storageTime;
+    }
+
+    public void setStorageTime(String storageTime) {
+        this.storageTime = storageTime;
     }
 
     public String getOverdueTime() {

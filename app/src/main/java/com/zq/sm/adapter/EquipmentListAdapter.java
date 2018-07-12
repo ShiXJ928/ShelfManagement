@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zq.sm.R;
-import com.zq.sm.bean.EquipmentBean;
+import com.zq.sm.bean.ShelfInfo;
 import com.zq.sm.util.Utility;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 public class EquipmentListAdapter extends RecyclerView.Adapter<EquipmentListAdapter.ViewHolder> implements View.OnClickListener {
-    private List<EquipmentBean> data;
+    private List<ShelfInfo.EquipTypeListBean> data;
     private LayoutInflater inflater;
     private RecyclerView mRecyclerView;//用来计算Child位置
     private OnItemClickListener onItemClickListener;
@@ -29,7 +29,7 @@ public class EquipmentListAdapter extends RecyclerView.Adapter<EquipmentListAdap
         this.onItemClickListener = onItemClickListener;
     }
 
-    public EquipmentListAdapter(Context context, List<EquipmentBean> data) {
+    public EquipmentListAdapter(Context context, List<ShelfInfo.EquipTypeListBean> data) {
         this.data = data;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -71,9 +71,9 @@ public class EquipmentListAdapter extends RecyclerView.Adapter<EquipmentListAdap
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tv_name.setText(data.get(position).getName());//加载数据
-        holder.tv_num.setText("数量：" + data.get(position).getTotalNum());
-        Utility.displayImage(data.get(position).getImageUrl(), holder.iv_img, R.drawable.fail_image);
+        holder.tv_name.setText(data.get(position).getEquiptypeName());//加载数据
+        holder.tv_num.setText("数量：" + data.get(position).getCount());
+        Utility.displayImage(data.get(position).getEquipImageUrl(), holder.iv_img, R.drawable.fail_image);
     }
 
     /**
@@ -116,6 +116,6 @@ public class EquipmentListAdapter extends RecyclerView.Adapter<EquipmentListAdap
      * 3、在需要处理数据的地方实现接口，实现接口中的方法，并将接口传递到数据产生的地方
      */
     public interface OnItemClickListener {
-        void onItemClick(int position, EquipmentBean model);
+        void onItemClick(int position, ShelfInfo.EquipTypeListBean model);
     }
 }

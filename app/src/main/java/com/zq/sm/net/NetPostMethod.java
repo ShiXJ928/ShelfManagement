@@ -34,7 +34,7 @@ public abstract class NetPostMethod {
                     try {
                         final Result result = JSON.parseObject(Net.httpPostMethod(uri, post).toString(), Result.class);
                         if (!ac.isFinishing()) {
-                            if (result.getError_code() == 0) {  //存在-1警告提示
+                            if (result.getCode() == 1) {  //存在-1警告提示
                                 runSuccsess(result);
                             } else {
                                 runfail(ac, result.getMessage());
@@ -89,7 +89,8 @@ public abstract class NetPostMethod {
         ac.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ToastUtil.show(message);
+//                ToastUtil.show(message);
+                ToastUtil.show("拉取数据失败");
             }
         });
     }

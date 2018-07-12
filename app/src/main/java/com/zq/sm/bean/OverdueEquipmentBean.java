@@ -6,50 +6,61 @@ package com.zq.sm.bean;
 
 public class OverdueEquipmentBean {
 
-    private String equipID;
-    private String equipName;
-    private String imageUrl;
-    private String overdueTime;
 
-    public OverdueEquipmentBean() {
+    /**
+     * ShowName : 警戒带(03020015)
+     * ImageUrl : null
+     * Expirydate : /Date(1529596800000)/
+     * Site : 第一列货架-1-4
+     * days : -5
+     */
+
+    private String ShowName;
+    private String ImageUrl;
+    private String Expirydate;
+    private String Site;
+    private int days;
+
+    public String getShowName() {
+        return ShowName;
     }
 
-    public OverdueEquipmentBean(String equipID, String equipName, String imageUrl, String overdueTime) {
-        this.equipID = equipID;
-        this.overdueTime = overdueTime;
-        this.imageUrl = imageUrl;
-        this.equipName = equipName;
-    }
-
-    public String getEquipID() {
-        return equipID;
-    }
-
-    public void setEquipID(String equipID) {
-        this.equipID = equipID;
-    }
-
-    public String getEquipName() {
-        return equipName;
-    }
-
-    public void setEquipName(String equipName) {
-        this.equipName = equipName;
+    public void setShowName(String ShowName) {
+        this.ShowName = ShowName;
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        if (ImageUrl == null) {
+            return "";
+        }
+        return ImageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageUrl(String ImageUrl) {
+        this.ImageUrl = ImageUrl;
     }
 
-    public String getOverdueTime() {
-        return overdueTime;
+    public String getExpirydate() {
+        return Expirydate;
     }
 
-    public void setOverdueTime(String overdueTime) {
-        this.overdueTime = overdueTime;
+    public void setExpirydate(String Expirydate) {
+        this.Expirydate = Expirydate;
+    }
+
+    public String getSite() {
+        return Site;
+    }
+
+    public void setSite(String Site) {
+        this.Site = Site;
+    }
+
+    public int getDays() {
+        return days;
+    }
+
+    public void setDays(int days) {
+        this.days = days;
     }
 }

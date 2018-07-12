@@ -73,19 +73,18 @@ public class LendEquipmentListAdapter extends RecyclerView.Adapter<LendEquipment
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tv_name.setText(data.get(position).getEquipName() + "(" + data.get(position).getEquipID() + ")");//加载数据
+        holder.tv_name.setText(data.get(position).getShowName());//加载数据
         holder.tv_lend_name.setText("领用人：" + data.get(position).getUserName());
-        holder.tv_lend_company.setText("借用单位：" + data.get(position).getUserCompany());
-        holder.tv_lend_time.setText("借出时间：" + data.get(position).getLendTime());
-        holder.tv_return_time.setText("应归还时间：" + data.get(position).getReturnTime());
-        holder.tv_overday.setText(data.get(position).getEquipName());
+        holder.tv_lend_company.setText("借用单位：" + data.get(position).getDepartmentName());
+        holder.tv_lend_time.setText("借出时间：" + data.get(position).getLastUseTime());
+        holder.tv_return_time.setText("应归还时间：" + data.get(position).getRevertTime());
         Utility.displayImage(data.get(position).getImageUrl(), holder.iv_img, R.drawable.fail_image);
-        if (Utility.compareTime(Utility.getNowTime("yyyy.MM.dd"), data.get(position).getReturnTime(), "yyyy.MM.dd")
-                || Utility.getNowTime("yyyy.MM.dd").equals(data.get(position).getReturnTime())) {
+        if (Utility.compareTime(Utility.getNowTime("yyyy-MM-dd"), data.get(position).getRevertTime(), "yyyy-MM-dd")
+                || Utility.getNowTime("yyyy-MM-dd").equals(data.get(position).getRevertTime())) {
             holder.tv_overday.setText("未超期");
             holder.tv_overday.setTextColor(context.getResources().getColor(R.color.bg_green));
         } else {
-            holder.tv_overday.setText("超期" + Utility.getDayByTime(data.get(position).getReturnTime()) + "天");
+            holder.tv_overday.setText("超期" + Utility.getDayByTime(data.get(position).getRevertTime(),"yyyy-MM-dd") + "天");
             holder.tv_overday.setTextColor(context.getResources().getColor(R.color.bg_red));
         }
     }

@@ -1,13 +1,20 @@
 package com.zq.sm.acty;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 import com.zq.sm.R;
 import com.zq.sm.adapter.LendEquipmentListAdapter;
-import com.zq.sm.bean.EquipmentBean;
+import com.zq.sm.application.App;
 import com.zq.sm.bean.LendEquipmentBean;
+import com.zq.sm.bean.OverdueEquipmentBean;
+import com.zq.sm.bean.Result;
+import com.zq.sm.net.NetPostMethod;
+import com.zq.sm.net.NetUrl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,25 +29,28 @@ public class LendEquipmentListActy extends BaseActy implements PullLoadMoreRecyc
     private List<LendEquipmentBean> list;
     private LendEquipmentListAdapter adapter;
 
+    private interface refreshSuccess {
+        void success();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acty_lend_equipment_list_acty);
 
         initView();
+        getLendEquipmentList(new refreshSuccess() {
+            @Override
+            public void success() {
+                adapter.notifyDataSetChanged();
+                dlg.dismiss();
+            }
+        });
     }
 
     private void initView() {
         initTitleBar(R.id.title, R.drawable.back, 0, "借出装备", null, R.color.text_blue, R.color.white);
         list = new ArrayList<>();
-        list.add(new LendEquipmentBean("NAO056", "drawable://" + R.drawable.tear_ejector, "催泪喷射器", "张明", "如皋市公安局", "2018.06.10", "2018.06.15"));
-        list.add(new LendEquipmentBean("NBO012", "drawable://" + R.drawable.interphone, "对讲机", "张明", "如皋市公安局", "2018.06.10", "2018.06.15"));
-        list.add(new LendEquipmentBean("NCO259", "drawable://" + R.drawable.flashlight, "强光手电", "张明", "如皋市公安局", "2018.06.10", "2018.06.15"));
-        list.add(new LendEquipmentBean("NDO186", "drawable://" + R.drawable.law_enforcement_instrument, "执法仪", "张明", "如皋市公安局", "2018.06.10", "2018.06.15"));
-        list.add(new LendEquipmentBean("NEO043", "drawable://" + R.drawable.multifunction_belt, "多功能腰带", "张明", "如皋市公安局", "2018.06.10", "2018.06.15"));
-        list.add(new LendEquipmentBean("NC1239", "drawable://" + R.drawable.cut_resistant_gloves, "防割手套", "赵哥", "如皋市公安局", "2018.06.01", "2018.06.10"));
-        list.add(new LendEquipmentBean("NE0008", "drawable://" + R.drawable.telescopic_baton, "伸缩警棍", "李晓", "如皋市公安局", "2018.06.01", "2018.06.12"));
-
 
         recyclerView = (PullLoadMoreRecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setGridLayout(2);
@@ -61,9 +71,50 @@ public class LendEquipmentListActy extends BaseActy implements PullLoadMoreRecyc
         }
     }
 
+    public void getLendEquipmentList(final refreshSuccess success) {
+        dlg.show();
+        JSONObject post = new JSONObject();
+        post.put("ShefId", App.sharedUtility.getEquipId());
+        new NetPostMethod(this, NetUrl.POST_LEND_EQUIPMENT_LIST, App.cachedThreadPool, post) {
+            @Override
+            public void runSuccsess(final Result r) {
+                runOnUiThread(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                list.clear();
+                                list.addAll(JSON.parseArray(r.getValue().toString(), LendEquipmentBean.class));
+                                success.success();
+                            }
+                        }
+                );
+            }
+
+            @Override
+            public void serverfail() {
+                dlg.dismiss();
+                showServerWarinning();
+            }
+
+            @Override
+            public void runfail(Context ctx, String message) {
+                dlg.dismiss();
+                showFailWarinning(ctx, message);
+            }
+
+        };
+    }
+
     @Override
     public void onRefresh() {
-        recyclerView.setPullLoadMoreCompleted();
+        getLendEquipmentList(new refreshSuccess() {
+            @Override
+            public void success() {
+                recyclerView.setPullLoadMoreCompleted();
+                adapter.notifyDataSetChanged();
+                dlg.dismiss();
+            }
+        });
     }
 
     @Override

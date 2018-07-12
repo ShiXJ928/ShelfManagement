@@ -95,8 +95,21 @@ public class Utility {
         return sDateFormat.format(c.getTime());
     }
 
-    public static long getDayByTime(String time) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+    public static String getTimeStr(String str, String type1, String type2) {
+        str = str.replace("T", " ");
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(type1);
+            Date date = sdf.parse(str);
+            sdf = new SimpleDateFormat(type2);
+            str = sdf.format(date);
+        } catch (Exception e) {
+
+        }
+        return str;
+    }
+
+    public static long getDayByTime(String time, String type) {
+        SimpleDateFormat sdf = new SimpleDateFormat(type);
         Date date = null;
         try {
             date = sdf.parse(time);

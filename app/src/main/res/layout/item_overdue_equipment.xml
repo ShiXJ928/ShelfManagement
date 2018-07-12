@@ -29,18 +29,29 @@
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="防弹衣(NA0056)"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/tv_position"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="位置：A1-1"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="过期时间：2018-06-10"
                 android:textColor="@color/black"
@@ -49,8 +60,9 @@
             <TextView
                 android:id="@+id/tv_day"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="已过期：3天"
                 android:textColor="@color/black"

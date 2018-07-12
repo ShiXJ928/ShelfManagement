@@ -1,20 +1,25 @@
 package com.zq.sm.acty;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 import com.zq.sm.R;
 import com.zq.sm.application.App;
-import com.zq.sm.bean.EquipmentBean;
+import com.zq.sm.bean.Result;
+import com.zq.sm.bean.ShelfInfo;
 import com.zq.sm.adapter.EquipmentListAdapter;
+import com.zq.sm.net.NetPostMethod;
+import com.zq.sm.net.NetUrl;
 import com.zq.sm.util.ToastUtil;
 
 import java.util.ArrayList;
@@ -27,11 +32,16 @@ import java.util.List;
 public class MainActy extends BaseActy implements EquipmentListAdapter.OnItemClickListener, PullLoadMoreRecyclerView.PullLoadMoreListener {
 
     private PullLoadMoreRecyclerView recyclerView;
-    private List<EquipmentBean> list;
+    private ShelfInfo shelfInfo;
+    private List<ShelfInfo.EquipTypeListBean> list;
     private EquipmentListAdapter adapter;
     private LinearLayout ll_left, ll_right;
     private TextView tb_tv;
     private TextView tv_setting;
+
+    private interface refreshSuccess {
+        void success();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +49,13 @@ public class MainActy extends BaseActy implements EquipmentListAdapter.OnItemCli
         setContentView(R.layout.acty_main);
 
         initView();
+        getShelfInfo(new refreshSuccess() {
+            @Override
+            public void success() {
+                adapter.notifyDataSetChanged();
+                dlg.dismiss();
+            }
+        });
     }
 
     private void initView() {
@@ -50,16 +67,6 @@ public class MainActy extends BaseActy implements EquipmentListAdapter.OnItemCli
         tb_tv = (TextView) findViewById(R.id.tb_tv);
         tb_tv.setText("如皋市公安局警用装备管理系统");
         list = new ArrayList<>();
-        list.add(new EquipmentBean("催泪喷射器", "drawable://" + R.drawable.tear_ejector, 30));
-        list.add(new EquipmentBean("对讲机", "drawable://" + R.drawable.interphone, 30));
-        list.add(new EquipmentBean("强光手电", "drawable://" + R.drawable.flashlight, 10));
-        list.add(new EquipmentBean("执法仪", "drawable://" + R.drawable.law_enforcement_instrument, 100));
-        list.add(new EquipmentBean("多功能腰带", "drawable://" + R.drawable.multifunction_belt, 45));
-        list.add(new EquipmentBean("防割手套", "drawable://" + R.drawable.cut_resistant_gloves, 28));
-        list.add(new EquipmentBean("伸缩警棍", "drawable://" + R.drawable.telescopic_baton, 51));
-        list.add(new EquipmentBean("手铐", "drawable://" + R.drawable.handcuffs, 36));
-        list.add(new EquipmentBean("电喇叭", "drawable://" + R.drawable.electric_horn, 30));
-        list.add(new EquipmentBean("肩灯", "drawable://" + R.drawable.shoulder_lamp, 30));
         recyclerView = (PullLoadMoreRecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setGridLayout(3);
 
@@ -94,6 +101,41 @@ public class MainActy extends BaseActy implements EquipmentListAdapter.OnItemCli
         });
     }
 
+    public void getShelfInfo(final refreshSuccess success) {
+        dlg.show();
+        JSONObject post = new JSONObject();
+        post.put("ShefId", App.sharedUtility.getEquipId());
+        new NetPostMethod(this, NetUrl.POST_SHELF_INFO, App.cachedThreadPool, post) {
+            @Override
+            public void runSuccsess(Result r) {
+                shelfInfo = JSON.parseObject(r.getValue().toString(), ShelfInfo.class);
+                runOnUiThread(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                list.clear();
+                                list.addAll(shelfInfo.getEquipTypeList());
+                                success.success();
+                            }
+                        }
+                );
+            }
+
+            @Override
+            public void serverfail() {
+                dlg.dismiss();
+                showServerWarinning();
+            }
+
+            @Override
+            public void runfail(Context ctx, String message) {
+                dlg.dismiss();
+                showFailWarinning(ctx, message);
+            }
+
+        };
+    }
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -125,15 +167,23 @@ public class MainActy extends BaseActy implements EquipmentListAdapter.OnItemCli
     }
 
     @Override
-    public void onItemClick(int position, EquipmentBean model) {
+    public void onItemClick(int position, ShelfInfo.EquipTypeListBean model) {
         Intent intent = new Intent(this, TypeEquipmentListActy.class);
-        intent.putExtra("name", model.getName());
+        intent.putExtra("name", model.getEquiptypeName());
+        intent.putExtra("EquipTypeId", model.getEquipTypeId());
         startActivity(intent);
     }
 
     @Override
     public void onRefresh() {
-        recyclerView.setPullLoadMoreCompleted();
+        getShelfInfo(new refreshSuccess() {
+            @Override
+            public void success() {
+                recyclerView.setPullLoadMoreCompleted();
+                adapter.notifyDataSetChanged();
+                dlg.dismiss();
+            }
+        });
     }
 
     @Override
@@ -146,6 +196,13 @@ public class MainActy extends BaseActy implements EquipmentListAdapter.OnItemCli
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 101 && resultCode == RESULT_OK) {
             Log.e("-------->", App.sharedUtility.getEquipId());
+            getShelfInfo(new refreshSuccess() {
+                @Override
+                public void success() {
+                    adapter.notifyDataSetChanged();
+                    dlg.dismiss();
+                }
+            });
         }
     }
 }

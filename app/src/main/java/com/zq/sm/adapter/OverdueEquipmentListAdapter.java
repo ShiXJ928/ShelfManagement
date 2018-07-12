@@ -35,12 +35,14 @@ public class OverdueEquipmentListAdapter extends RecyclerView.Adapter<OverdueEqu
         TextView tv_name;
         TextView tv_time;
         TextView tv_day;
+        TextView tv_position;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tv_name = (TextView) itemView.findViewById(R.id.tv_name);
             tv_time = (TextView) itemView.findViewById(R.id.tv_time);
             tv_day = (TextView) itemView.findViewById(R.id.tv_day);
+            tv_position = (TextView) itemView.findViewById(R.id.tv_position);
             iv_img = (ImageView) itemView.findViewById(R.id.iv_img);
         }
     }
@@ -68,16 +70,17 @@ public class OverdueEquipmentListAdapter extends RecyclerView.Adapter<OverdueEqu
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Utility.displayImage(data.get(position).getImageUrl(), holder.iv_img, R.drawable.fail_image);
-        holder.tv_name.setText(data.get(position).getEquipName() + "(" + data.get(position).getEquipID() + ")");//加载数据
-        holder.tv_time.setText("过期时间：" + data.get(position).getOverdueTime());
-        if (Utility.getNowTime("yyyy.MM.dd").equals(data.get(position).getOverdueTime())) {
+        holder.tv_name.setText(data.get(position).getShowName());//加载数据
+        holder.tv_time.setText("过期时间：" + Utility.getTimeStr(data.get(position).getExpirydate(), "yyyy/MM/dd HH:mm:ss", "yyyy-MM-dd"));
+        holder.tv_position.setText("位置：" + data.get(position).getSite());
+        if (data.get(position).getDays() == 0) {
             holder.tv_day.setText("今天到期");
             holder.tv_day.setTextColor(context.getResources().getColor(R.color.bg_red));
-        } else if (Utility.compareTime(Utility.getNowTime("yyyy.MM.dd"), data.get(position).getOverdueTime(), "yyyy.MM.dd")) {
-            holder.tv_day.setText("距离过期" + Math.abs(Utility.getDayByTime(data.get(position).getOverdueTime())) + "天");
+        } else if (data.get(position).getDays() > 0) {
+            holder.tv_day.setText("距离过期" + Math.abs(data.get(position).getDays()) + "天");
             holder.tv_day.setTextColor(context.getResources().getColor(R.color.bg_green));
         } else {
-            holder.tv_day.setText("已过期" + Utility.getDayByTime(data.get(position).getOverdueTime()) + "天");
+            holder.tv_day.setText("已过期" + Math.abs(data.get(position).getDays()) + "天");
             holder.tv_day.setTextColor(context.getResources().getColor(R.color.bg_red));
         }
     }

@@ -6,80 +6,71 @@ package com.zq.sm.bean;
 
 public class LendEquipmentBean {
 
-    private String equipID;
-    private String imageUrl;
-    private String equipName;
-    private String userName;
-    private String userCompany;
-    private String lendTime;
-    private String returnTime;
 
-    public LendEquipmentBean() {
+    /**
+     * ShowName : 防弹防刺服(03010002)
+     * UserName : 张卫良
+     * DepartmentName : 苏州市局虎丘分局通安派出所
+     * ImageUrl : null
+     * LastUseTime : 2018-06-21
+     * RevertTime : 2018-06-23
+     */
+
+    private String ShowName;
+    private String UserName;
+    private String DepartmentName;
+    private String ImageUrl;
+    private String LastUseTime;
+    private String RevertTime;
+
+    public String getShowName() {
+        return ShowName;
     }
 
-    public LendEquipmentBean(String equipID, String imageUrl, String equipName, String userName, String userCompany, String lendTime, String returnTime) {
-        this.equipID = equipID;
-        this.imageUrl = imageUrl;
-        this.equipName = equipName;
-        this.userName = userName;
-        this.userCompany = userCompany;
-        this.lendTime = lendTime;
-        this.returnTime = returnTime;
-    }
-
-    public String getEquipName() {
-        return equipName;
-    }
-
-    public String getEquipID() {
-        return equipID;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public void setEquipID(String equipID) {
-        this.equipID = equipID;
-    }
-
-    public void setEquipName(String equipName) {
-        this.equipName = equipName;
+    public void setShowName(String ShowName) {
+        this.ShowName = ShowName;
     }
 
     public String getUserName() {
-        return userName;
+        return UserName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserName(String UserName) {
+        this.UserName = UserName;
     }
 
-    public String getUserCompany() {
-        return userCompany;
+    public String getDepartmentName() {
+        return DepartmentName;
     }
 
-    public void setUserCompany(String userCompany) {
-        this.userCompany = userCompany;
+    public void setDepartmentName(String DepartmentName) {
+        this.DepartmentName = DepartmentName;
     }
 
-    public String getLendTime() {
-        return lendTime;
+    public String getImageUrl() {
+        if (ImageUrl == null) {
+            return "";
+        }
+        return ImageUrl;
     }
 
-    public void setLendTime(String lendTime) {
-        this.lendTime = lendTime;
+    public void setImageUrl(String ImageUrl) {
+        this.ImageUrl = ImageUrl;
     }
 
-    public String getReturnTime() {
-        return returnTime;
+    public String getLastUseTime() {
+        return LastUseTime;
     }
 
-    public void setReturnTime(String returnTime) {
-        this.returnTime = returnTime;
+    public void setLastUseTime(String LastUseTime) {
+        this.LastUseTime = LastUseTime;
+    }
+
+    public String getRevertTime() {
+        return RevertTime;
+    }
+
+    public void setRevertTime(String RevertTime) {
+        this.RevertTime = RevertTime;
     }
 }

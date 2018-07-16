@@ -1,7 +1,7 @@
 package com.zq.sm.net;
 
 public class NetUrl {
-    public static String URL = "http://112.74.179.218:7070";
+    public static String URL = "http://192.168.1.5:7070";
 
     public final static String POST_SHELF_INFO = URL + "/APIData/GetEquipCount";//获取货架信息
     public final static String POST_OVERDUE_EQUIPMENT_LIST = URL + "/APIData/GetExpireList";//获取过期装备列表

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.zq.sm.R;
 import com.zq.sm.bean.LendEquipmentBean;
+import com.zq.sm.net.NetUrl;
 import com.zq.sm.util.Utility;
 
 import java.util.List;
@@ -78,13 +79,13 @@ public class LendEquipmentListAdapter extends RecyclerView.Adapter<LendEquipment
         holder.tv_lend_company.setText("借用单位：" + data.get(position).getDepartmentName());
         holder.tv_lend_time.setText("借出时间：" + data.get(position).getLastUseTime());
         holder.tv_return_time.setText("应归还时间：" + data.get(position).getRevertTime());
-        Utility.displayImage(data.get(position).getImageUrl(), holder.iv_img, R.drawable.fail_image);
+        Utility.displayImage(NetUrl.URL + data.get(position).getImageUrl(), holder.iv_img, R.drawable.fail_image);
         if (Utility.compareTime(Utility.getNowTime("yyyy-MM-dd"), data.get(position).getRevertTime(), "yyyy-MM-dd")
                 || Utility.getNowTime("yyyy-MM-dd").equals(data.get(position).getRevertTime())) {
             holder.tv_overday.setText("未超期");
             holder.tv_overday.setTextColor(context.getResources().getColor(R.color.bg_green));
         } else {
-            holder.tv_overday.setText("超期" + Utility.getDayByTime(data.get(position).getRevertTime(),"yyyy-MM-dd") + "天");
+            holder.tv_overday.setText("超期" + Utility.getDayByTime(data.get(position).getRevertTime(), "yyyy-MM-dd") + "天");
             holder.tv_overday.setTextColor(context.getResources().getColor(R.color.bg_red));
         }
     }

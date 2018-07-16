@@ -38,6 +38,7 @@ public class MainActy extends BaseActy implements EquipmentListAdapter.OnItemCli
     private LinearLayout ll_left, ll_right;
     private TextView tb_tv;
     private TextView tv_setting;
+    private TextView tv_name;
 
     private interface refreshSuccess {
         void success();
@@ -66,6 +67,7 @@ public class MainActy extends BaseActy implements EquipmentListAdapter.OnItemCli
         ll_right.setOnClickListener(this);
         tb_tv = (TextView) findViewById(R.id.tb_tv);
         tb_tv.setText("如皋市公安局警用装备管理系统");
+        tv_name = (TextView) findViewById(R.id.tv_name);
         list = new ArrayList<>();
         recyclerView = (PullLoadMoreRecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setGridLayout(3);
@@ -116,6 +118,7 @@ public class MainActy extends BaseActy implements EquipmentListAdapter.OnItemCli
                                 list.clear();
                                 list.addAll(shelfInfo.getEquipTypeList());
                                 success.success();
+                                tv_name.setText(shelfInfo.getShelfName());
                             }
                         }
                 );
@@ -124,12 +127,24 @@ public class MainActy extends BaseActy implements EquipmentListAdapter.OnItemCli
             @Override
             public void serverfail() {
                 dlg.dismiss();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        recyclerView.setPullLoadMoreCompleted();
+                    }
+                });
                 showServerWarinning();
             }
 
             @Override
             public void runfail(Context ctx, String message) {
                 dlg.dismiss();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        recyclerView.setPullLoadMoreCompleted();
+                    }
+                });
                 showFailWarinning(ctx, message);
             }
 

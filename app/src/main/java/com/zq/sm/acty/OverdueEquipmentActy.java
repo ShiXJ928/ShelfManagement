@@ -91,12 +91,24 @@ public class OverdueEquipmentActy extends BaseActy implements PullLoadMoreRecycl
             @Override
             public void serverfail() {
                 dlg.dismiss();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        recyclerView.setPullLoadMoreCompleted();
+                    }
+                });
                 showServerWarinning();
             }
 
             @Override
             public void runfail(Context ctx, String message) {
                 dlg.dismiss();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        recyclerView.setPullLoadMoreCompleted();
+                    }
+                });
                 showFailWarinning(ctx, message);
             }
 

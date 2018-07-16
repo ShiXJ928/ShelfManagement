@@ -36,7 +36,7 @@ public abstract class NetGetMethod {
                             if (result.getCode() == 1) {  //存在-1警告提示
                                 runSuccsess(result);
                             } else {
-                                runfail(ac, result.getMessage());
+                                runfail(ac, result.getMsg());
                             }
                         }
                     } catch (NullPointerException e) {

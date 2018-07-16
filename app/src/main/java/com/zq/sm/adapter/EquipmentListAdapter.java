@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.zq.sm.R;
 import com.zq.sm.bean.ShelfInfo;
+import com.zq.sm.net.NetUrl;
 import com.zq.sm.util.Utility;
 
 import java.util.List;
@@ -73,7 +74,7 @@ public class EquipmentListAdapter extends RecyclerView.Adapter<EquipmentListAdap
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tv_name.setText(data.get(position).getEquiptypeName());//加载数据
         holder.tv_num.setText("数量：" + data.get(position).getCount());
-        Utility.displayImage(data.get(position).getEquipImageUrl(), holder.iv_img, R.drawable.fail_image);
+        Utility.displayImage(NetUrl.URL+data.get(position).getEquipImageUrl(), holder.iv_img, R.drawable.fail_image);
     }
 
     /**

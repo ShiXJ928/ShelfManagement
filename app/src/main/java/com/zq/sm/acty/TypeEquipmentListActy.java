@@ -111,12 +111,24 @@ public class TypeEquipmentListActy extends BaseActy implements IXListViewListene
             @Override
             public void serverfail() {
                 dlg.dismiss();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        listView.stopLoadMore();
+                    }
+                });
                 showServerWarinning();
             }
 
             @Override
             public void runfail(Context ctx, String message) {
                 dlg.dismiss();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        listView.stopLoadMore();
+                    }
+                });
                 showFailWarinning(ctx, message);
             }
 

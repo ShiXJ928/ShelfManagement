@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.zq.sm.R;
 import com.zq.sm.bean.OverdueEquipmentBean;
+import com.zq.sm.net.NetUrl;
 import com.zq.sm.util.Utility;
 
 import java.util.List;
@@ -69,7 +70,7 @@ public class OverdueEquipmentListAdapter extends RecyclerView.Adapter<OverdueEqu
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Utility.displayImage(data.get(position).getImageUrl(), holder.iv_img, R.drawable.fail_image);
+        Utility.displayImage(NetUrl.URL + data.get(position).getImageUrl(), holder.iv_img, R.drawable.fail_image);
         holder.tv_name.setText(data.get(position).getShowName());//加载数据
         holder.tv_time.setText("过期时间：" + Utility.getTimeStr(data.get(position).getExpirydate(), "yyyy/MM/dd HH:mm:ss", "yyyy-MM-dd"));
         holder.tv_position.setText("位置：" + data.get(position).getSite());

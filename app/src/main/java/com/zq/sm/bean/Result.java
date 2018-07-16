@@ -6,7 +6,7 @@ package com.zq.sm.bean;
 public class Result {
     private int Code;
     private Object Value;
-    private String Message;
+    private String msg;
 
     public int getCode() {
         return Code;
@@ -24,11 +24,14 @@ public class Result {
         Value = value;
     }
 
-    public String getMessage() {
-        return Message;
+    public String getMsg() {
+        if (msg == null) {
+            return "暂无数据";
+        }
+        return msg;
     }
 
-    public void setMessage(String message) {
-        Message = message;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

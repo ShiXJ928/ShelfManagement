@@ -37,7 +37,7 @@ public abstract class NetPostMethod {
                             if (result.getCode() == 1) {  //存在-1警告提示
                                 runSuccsess(result);
                             } else {
-                                runfail(ac, result.getMessage());
+                                runfail(ac, result.getMsg());
                             }
                         }
                     } catch (NullPointerException e) {
@@ -89,8 +89,8 @@ public abstract class NetPostMethod {
         ac.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-//                ToastUtil.show(message);
-                ToastUtil.show("拉取数据失败");
+                ToastUtil.show(message);
+//                ToastUtil.show("拉取数据失败");
             }
         });
     }

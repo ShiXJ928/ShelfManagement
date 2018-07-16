@@ -1,5 +1,6 @@
 package com.zq.sm.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +26,9 @@ public class ShelfInfo {
     }
 
     public List<EquipTypeListBean> getEquipTypeList() {
+        if (EquipTypeList==null){
+            return new ArrayList<>();
+        }
         return EquipTypeList;
     }
 

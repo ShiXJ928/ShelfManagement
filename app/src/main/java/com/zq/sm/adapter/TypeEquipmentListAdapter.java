@@ -77,15 +77,18 @@ public class TypeEquipmentListAdapter extends BaseAdapter {
         holder.tv_statues.setText(bean.getStatusName());
         holder.tv_position.setText(bean.getSite());
         holder.tv_storage_time.setText(bean.getPurchasedate());
-        holder.tv_overdue_time.setText(bean.getExpirydate());
-        holder.tv_manufacture_time.setText(bean.getProductdate());
-        if (Utility.getNowTime("yyyy-MM-dd").equals(bean.getExpirydate())) {
-            holder.tv_overdue_time.setTextColor(context.getResources().getColor(R.color.bg_red));
-        } else if (Utility.compareTime(Utility.getNowTime("yyyy-MM-dd"), bean.getExpirydate(), "yyyy-MM-dd")) {
-            holder.tv_overdue_time.setTextColor(context.getResources().getColor(R.color.bg_green));
-        } else {
-            holder.tv_overdue_time.setTextColor(context.getResources().getColor(R.color.bg_red));
+        if (bean.getExpirydate() != null) {
+            holder.tv_overdue_time.setText(bean.getExpirydate());
+            if (Utility.getNowTime("yyyy-MM-dd").equals(bean.getExpirydate())) {
+                holder.tv_overdue_time.setTextColor(context.getResources().getColor(R.color.bg_red));
+            } else if (Utility.compareTime(Utility.getNowTime("yyyy-MM-dd"), bean.getExpirydate(), "yyyy-MM-dd")) {
+                holder.tv_overdue_time.setTextColor(context.getResources().getColor(R.color.bg_green));
+            } else {
+                holder.tv_overdue_time.setTextColor(context.getResources().getColor(R.color.bg_red));
+            }
         }
+        holder.tv_manufacture_time.setText(bean.getProductdate());
+
         if (position % 2 == 1) {
             holder.ll_equipment.setBackgroundColor(context.getResources().getColor(R.color.bg_grey));
         } else {
